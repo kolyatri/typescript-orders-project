@@ -25,6 +25,7 @@
   "dependencies": {
     "@typescript-eslint/eslint-plugin": "^8.30.1",
     "@typescript-eslint/parser": "^8.30.1",
+    "dotenv": "^16.5.0",
     "fs": "^0.0.1-security"
   }
 }

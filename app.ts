@@ -6,6 +6,9 @@ import { ConsoleLogger } from './logger';
 import { CreditCardPayment } from './payment';
 import { createOrder, createProduct, createUser } from './helpers';
 import fs from 'fs';
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 const consoleLogger: ConsoleLogger = new ConsoleLogger();
 
@@ -13,15 +16,16 @@ const userRepository: Repository<User> = new Repository<User>();
 const productRepository: Repository<Product> = new Repository<Product>();
 const orderRepository: Repository<Order> = new Repository<Order>();
 
-const usersData = JSON.parse(
-  fs.readFileSync('./config/users.json', 'utf8'),
-) as User[];
+const usersFile = process.env.USERS_FILE || './config/users.json';
+const productsFile = process.env.PRODUCTS_FILE || './config/products.json';
+
+const usersData = JSON.parse(fs.readFileSync(usersFile, 'utf8')) as User[];
 usersData.forEach((u) =>
   userRepository.addItem(createUser(u.id, u.name, u.email)),
 );
 
 const productsData = JSON.parse(
-  fs.readFileSync('./config/products.json', 'utf8'),
+  fs.readFileSync(productsFile, 'utf8'),
 ) as Product[];
 productsData.forEach((p) =>
   productRepository.addItem(createProduct(p.id, p.name, p.price)),
