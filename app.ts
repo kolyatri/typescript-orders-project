@@ -5,6 +5,7 @@ import { Calculator } from './calculator';
 import { ConsoleLogger } from './logger';
 import { CreditCardPayment } from './payment';
 import { createOrder, createProduct, createUser } from './helpers';
+import fs from 'fs';
 
 const consoleLogger: ConsoleLogger = new ConsoleLogger();
 
@@ -12,9 +13,21 @@ const userRepository: Repository<User> = new Repository<User>();
 const productRepository: Repository<Product> = new Repository<Product>();
 const orderRepository: Repository<Order> = new Repository<Order>();
 
-userRepository.addItem(createUser(0, 'Nick', 'kolyatri@gmail.com'));
-productRepository.addItem(createProduct(0, 'mouse', 1));
-productRepository.addItem(createProduct(1, 'keyboard', 2));
+const usersData = JSON.parse(
+  fs.readFileSync('./config/users.json', 'utf8'),
+) as User[];
+usersData.forEach((u) =>
+  userRepository.addItem(createUser(u.id, u.name, u.email)),
+);
+
+const productsData = JSON.parse(
+  fs.readFileSync('./config/products.json', 'utf8'),
+) as Product[];
+productsData.forEach((p) =>
+  productRepository.addItem(createProduct(p.id, p.name, p.price)),
+);
+
+console.log(productRepository.getAll());
 
 const firstUser = userRepository.findById(0);
 const firstProduct = productRepository.findById(0);
