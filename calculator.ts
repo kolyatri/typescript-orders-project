@@ -9,7 +9,7 @@ export class Calculator {
 
   calculateTotal(price: number, quantity: number): number {
     const result = price * quantity;
-    this.consoleLogger.log(`[Calculator] calcualteTotal, result: ${result}`);
+    this.consoleLogger.log(`[Calculator] calculateTotal, result: ${result}`);
     return result;
   }
 }
