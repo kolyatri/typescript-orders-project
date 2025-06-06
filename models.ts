@@ -24,4 +24,3 @@ export interface Order {
   quantity: number;
   status: OrderStatus;
 }
-

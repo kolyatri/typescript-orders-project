@@ -1,4 +1,4 @@
-import { ConsoleLogger } from "./logger";
+import { ConsoleLogger } from './logger';
 
 abstract class PaymentMethod {
   protected _amount: number;
@@ -22,7 +22,9 @@ abstract class PaymentMethod {
 
 export class CreditCardPayment extends PaymentMethod {
   processPayment(): void {
-    this.consoleLogger.log(`[CreditCardPayment] processPayment, ${this.amount}`);
+    this.consoleLogger.log(
+      `[CreditCardPayment] processPayment, ${this.amount}`,
+    );
   }
 }
 
