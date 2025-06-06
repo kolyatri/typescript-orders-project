@@ -17,21 +17,32 @@ const productRepository: Repository<Product> = new Repository<Product>();
 const orderRepository: Repository<Order> = new Repository<Order>();
 
 const usersFile = process.env.USERS_FILE || './config/users.json';
+if (!process.env.USERS_FILE) {
+  consoleLogger.warn(`USERS_FILE not set, using default ${usersFile}`);
+}
 const productsFile = process.env.PRODUCTS_FILE || './config/products.json';
+if (!process.env.PRODUCTS_FILE) {
+  consoleLogger.warn(`PRODUCTS_FILE not set, using default ${productsFile}`);
+}
+let usersData: User[] = [];
+try {
+  usersData = JSON.parse(fs.readFileSync(usersFile, 'utf8')) as User[];
+  usersData.forEach((u) =>
+    userRepository.addItem(createUser(u.id, u.name, u.email)),
+  );
+} catch (err) {
+  consoleLogger.error(`Unable to load ${usersFile}: ${err}`);
+}
 
-const usersData = JSON.parse(fs.readFileSync(usersFile, 'utf8')) as User[];
-usersData.forEach((u) =>
-  userRepository.addItem(createUser(u.id, u.name, u.email)),
-);
-
-const productsData = JSON.parse(
-  fs.readFileSync(productsFile, 'utf8'),
-) as Product[];
-productsData.forEach((p) =>
-  productRepository.addItem(createProduct(p.id, p.name, p.price)),
-);
-
-console.log(productRepository.getAll());
+let productsData: Product[] = [];
+try {
+  productsData = JSON.parse(fs.readFileSync(productsFile, 'utf8')) as Product[];
+  productsData.forEach((p) =>
+    productRepository.addItem(createProduct(p.id, p.name, p.price)),
+  );
+} catch (err) {
+  consoleLogger.error(`Unable to load ${productsFile}: ${err}`);
+}
 
 const firstUser = userRepository.findById(0);
 const firstProduct = productRepository.findById(0);
@@ -40,7 +51,7 @@ if (firstUser && firstProduct) {
     createOrder(0, firstUser, firstProduct, 2, OrderStatus.Pending),
   );
 } else {
-  consoleLogger.log(
+  consoleLogger.error(
     '[App] Failed to create order 0: user or product not found',
   );
 }
@@ -52,7 +63,7 @@ if (secondUser && secondProduct) {
     createOrder(1, secondUser, secondProduct, 1, OrderStatus.Delivered),
   );
 } else {
-  consoleLogger.log(
+  consoleLogger.error(
     '[App] Failed to create order 1: user or product not found',
   );
 }

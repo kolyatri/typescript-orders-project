@@ -22,7 +22,7 @@ abstract class PaymentMethod {
 
 export class CreditCardPayment extends PaymentMethod {
   processPayment(): void {
-    this.consoleLogger.log(
+    this.consoleLogger.info(
       `[CreditCardPayment] processPayment, ${this.amount}`,
     );
   }
@@ -30,6 +30,6 @@ export class CreditCardPayment extends PaymentMethod {
 
 export class PayPalPayment extends PaymentMethod {
   processPayment(): void {
-    this.consoleLogger.log(`[PayPalPayment] processPayment, ${this.amount}`);
+    this.consoleLogger.info(`[PayPalPayment] processPayment, ${this.amount}`);
   }
 }

@@ -1,8 +1,16 @@
 interface Logger {
-  log(message: string): void;
+  info(message: string): void;
+  warn(message: string): void;
+  error(message: string): void;
 }
 export class ConsoleLogger implements Logger {
-  log(message: string) {
-    console.log(`[LOG] ${message}`);
+  info(message: string) {
+    console.log(`[INFO] ${message}`);
+  }
+  warn(message: string) {
+    console.log(`[WARN] ${message}`);
+  }
+  error(message: string) {
+    console.log(`[ERROR] ${message}`);
   }
 }

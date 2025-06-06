@@ -26,8 +26,8 @@ export class OrderManager {
     if (order) {
       order.status = status;
     } else {
-      this.consoleLogger.log(
-        `[OrderManage] UpdateStatus, Error, no order with such id`,
+      this.consoleLogger.info(
+        `[OrderManage] updateStatus: no order with such id`,
       );
     }
   }
