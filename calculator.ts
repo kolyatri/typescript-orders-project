@@ -1,4 +1,4 @@
-import { ConsoleLogger } from "./logger"; 
+import { ConsoleLogger } from './logger';
 
 export class Calculator {
   private readonly consoleLogger: ConsoleLogger;

@@ -1,12 +1,15 @@
-import { ConsoleLogger } from "./logger";
-import { Order,OrderStatus } from "./models";
-import { Repository } from "./repository";
+import { ConsoleLogger } from './logger';
+import { Order, OrderStatus } from './models';
+import { Repository } from './repository';
 
 export class OrderManager {
   private orderRepository: Repository<Order>;
   private readonly consoleLogger: ConsoleLogger;
 
-  constructor(orderRepository: Repository<Order>, consoleLogger: ConsoleLogger) {
+  constructor(
+    orderRepository: Repository<Order>,
+    consoleLogger: ConsoleLogger,
+  ) {
     this.orderRepository = orderRepository;
     this.consoleLogger = consoleLogger;
   }
@@ -18,15 +21,13 @@ export class OrderManager {
   }
 
   updateStatus(id: number, status: OrderStatus): void {
-
     const order = this.orderRepository.findById(id);
 
-    if(order){
+    if (order) {
       order.status = status;
-    } 
-    else{
+    } else {
       this.consoleLogger.log(
-        `[OrderManage] UpdateStatus, Error, no order with such id`
+        `[OrderManage] UpdateStatus, Error, no order with such id`,
       );
     }
   }
