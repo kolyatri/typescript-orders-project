@@ -1,7 +1,10 @@
 import { Repository } from '../repository';
 
 describe('Repository', () => {
-  interface Item { id: number; value: string }
+  interface Item {
+    id: number;
+    value: string;
+  }
 
   it('adds and retrieves item by id', () => {
     const repo = new Repository<Item>();
