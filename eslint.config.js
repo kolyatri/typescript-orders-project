@@ -10,6 +10,15 @@ module.exports = [
   },
   js.configs.recommended,
   {
+    files: ['**/*.js'],
+    languageOptions: {
+      globals: {
+        ...globals.node,
+        ...globals.es2020,
+      },
+    },
+  },
+  {
     files: ['**/*.ts'],
     ignores: ['node_modules/**'],
     languageOptions: {
@@ -30,6 +39,14 @@ module.exports = [
     rules: {
       ...tsPlugin.configs.recommended.rules,
       'prettier/prettier': 'error',
+    },
+  },
+  {
+    files: ['**/*.test.ts'],
+    languageOptions: {
+      globals: {
+        ...globals.jest,
+      },
     },
   },
 ];
