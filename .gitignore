@@ -1,5 +1,6 @@
 node_modules/
 *.js
+!jest.config.js
 !eslint.config.js
 
 # Ignore logs
