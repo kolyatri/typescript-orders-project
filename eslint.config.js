@@ -6,7 +6,7 @@ const globals = require('globals');
 
 module.exports = [
   {
-    ignores: ['eslint.config.js', 'node_modules/**'],
+    ignores: ['eslint.config.js', 'jest.config.js', 'node_modules/**'],
   },
   js.configs.recommended,
   {
@@ -30,6 +30,16 @@ module.exports = [
     rules: {
       ...tsPlugin.configs.recommended.rules,
       'prettier/prettier': 'error',
+    },
+  },
+  {
+    files: ['**/*.test.ts'],
+    languageOptions: {
+      globals: {
+        ...globals.node,
+        ...globals.es2020,
+        ...globals.jest,
+      },
     },
   },
 ];
